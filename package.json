@@ -1,0 +1,43 @@
+{
+  "name": "library.dom.nyc",
+  "version": "0.0.1",
+  "description": "webapp prototype of lending library.  to allow people to share/loan things to friends.",
+  "main": "app.js",
+  "scripts": {
+    "postinstall": "bower install",
+    "prestart": "npm install",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/domsavatta/lendinglibrary"
+  },
+  "author": {
+    "name": "dom savatta",
+    "email": "dom@savatta.com",
+    "url": "http://dom.nyc"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "bower": "^1.5.2",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-replace": "^0.5.4",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.4.0",
+    "jade": "^1.11.0",
+    "method-override": "^2.3.5",
+    "morgan": "^1.6.1",
+    "node-neo4j": "^2.0.3",
+    "passport": "^0.3.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "mocha": "^2.3.0"
+  }
+}

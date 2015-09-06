@@ -1,0 +1,24 @@
+{
+  "name": "lendinglibrary",
+  "version": "0.0.1",
+  "homepage": "https://github.com/domsavatta/lendinglibrary",
+  "authors": [
+    "dominic savatta <dom@savatta.com>"
+  ],
+  "description": "prototype for a lending library webapp",
+  "main": "main.js",
+  "license": "ISC",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs": "~1.4.5",
+    "angular-route": "~1.4.5",
+    "angular-resource": "~1.4.5"
+  }
+}
