@@ -1,13 +1,13 @@
-lendinglibaryServices.factory('Item', [
+lendinglibaryServices.factory('User', [
 
   function() {
     return {
-      get: function(item) {
+      get: function(userid) {
         return {
-          name: "test item"
+          name: "john malko"
         };
       },
-      list: function(item) {
+      list: function() {
         return [{
           name: "test item"
         }, {

@@ -1,29 +1,53 @@
+global.__base = __dirname + '/';
 var express = require('express');
 var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var util = require('util');
 var logger = require('morgan');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var db = require('./db');
+var ctrls = require('./ctrls');
 
 // Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete Twitter profile is serialized
-//   and deserialized.
-passport.serializeUser(function(user, done) {
-  console.log("serializing user", user);
-  done(null, user);
+passport.use('local', new LocalStrategy(
+  function(username, password, cb) {
+    console.log(username, password, "Hello");
+    db.users.findbyusername(username, function(err, user) {
+      if (err) {
+        return cb(err);
+      }
+      if (!user || user.length != 1) {
+        return cb(null, false);
+      }
+      if (user[0].password != password) {
+        return cb(null, false);
+      }
+      return cb(null, user[0]);
+    });
+  }));
+
+
+// Configure Passport authenticated session persistence.
+//
+// In order to restore authentication state across HTTP requests, Passport needs
+// to serialize users into and deserialize users out of the session.  The
+// typical implementation of this is as simple as supplying the user ID when
+// serializing, and querying the user record by ID from the database when
+// deserializing.
+passport.serializeUser(function(user, cb) {
+  cb(null, user._id);
 });
 
-passport.deserializeUser(function(obj, done) {
-  console.log("deserializing obj", obj);
-  done(null, obj);
+passport.deserializeUser(function(id, cb) {
+  db.users.findbyid(id, function(err, user) {
+    if (err) {
+      return cb(err);
+    }
+    cb(null, user);
+  });
 });
-
-
 
 
 var app = express();
@@ -42,13 +66,23 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/public', express.static('public'));
 app.use(express.static('build'));
+
+app.use('/api/failed', function(req, res) {
+  res.sendStatus(401)
+});
+app.post('/api/logout', ctrls.user.logout);
+app.post('/api/login', passport.authenticate('local', {
+  failureRedirect: '/api/failed'
+}), ctrls.user.login);
 
 var server = app.listen(3000, function() {
   var port = server.address().port;
   console.log('library.dom.nyc listening on port %s', port);
 });
+
+
+
 
 
 
@@ -61,5 +95,5 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login')
-}
+  res.sendStatus(401);
+};

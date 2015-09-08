@@ -13,6 +13,10 @@ Install bower modules
 
     bower install
 
+Seed Database 
+
+    node db/seed.js
+
 Run nodejs server and monitor for changes
 
     gulp

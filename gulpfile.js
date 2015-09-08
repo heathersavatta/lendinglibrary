@@ -10,14 +10,15 @@ gulp.task('js-dependency', function() {
   return gulp.src([
       'bower_modules/angularjs/angular.js',
       'bower_modules/angular-resource/angular-resource.js',
-      'bower_modules/angular-route/angular-route.js'
+      'bower_modules/angular-route/angular-route.js',
+      'bower_modules/angular-ui-router/release/angular-ui-router.js'
     ]).pipe(concat('dependency.js'))
     .pipe(uglify())
     .pipe(gulp.dest('build'));
 });
 
 gulp.task('javascript', function() {
-  return gulp.src('frontside/js/**/*.js')
+  return gulp.src('client/js/**/*.js')
     .pipe(sourcemaps.init())
     .pipe(replace(/'use strict';/g, ''))
     .pipe(concat('magic.js'))
@@ -27,14 +28,14 @@ gulp.task('javascript', function() {
 
 
 gulp.task('jade', function() {
-  gulp.src('frontside/html/**/*.jade')
+  gulp.src('client/html/**/*.jade')
     .pipe(jade())
     .pipe(gulp.dest('build'))
 });
 
 gulp.task('watcher', function(next) {
-  gulp.watch('frontside/js/**', ['javascript']);
-  gulp.watch('frontside/html/**', ['jade']);
+  gulp.watch('client/js/**', ['javascript']);
+  gulp.watch('client/html/**', ['jade']);
   next();
 });
 
@@ -42,7 +43,7 @@ gulp.task('default', ['js-dependency', 'javascript', 'jade', 'watcher'], functio
   nodemon({
     script: 'app.js',
     ext: 'js',
-    ignore: ['node_modules/**', 'frontside/js/**']
+    ignore: ['node_modules/**', 'client/js/**']
   })
     .on('change', function() {
       console.log('something changed!');

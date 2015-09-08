@@ -19,6 +19,7 @@
   "dependencies": {
     "angularjs": "~1.4.5",
     "angular-route": "~1.4.5",
-    "angular-resource": "~1.4.5"
+    "angular-resource": "~1.4.5",
+    "angular-ui-router": "~0.2.15"
   }
 }
