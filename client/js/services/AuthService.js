@@ -5,7 +5,7 @@ lendinglibaryServices.factory('AuthService', function($http, Session) {
 
   authService.login = function(credentials) {
     return $http
-      .post('/api/login', credentials)
+      .post('/api/user/login', credentials)
       .then(function(res) {
         Session.create(res.data.username, null);
         return res.data.username;

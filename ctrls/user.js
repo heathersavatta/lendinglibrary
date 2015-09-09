@@ -11,3 +11,10 @@ exports.logout = function(req, res) {
   req.logout();
   res.sendStatus(200);
 };
+
+exports.register = function(req, res) {
+  console.log(req.body);
+  res.json({
+    username: req.body.username
+  })
+};

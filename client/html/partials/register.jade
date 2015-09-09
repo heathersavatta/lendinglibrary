@@ -1,0 +1,7 @@
+h2 Register
+form(name="registrationForm" ng-submit="register(registration)" novalidate)
+  label(for="username") Username:
+  input(type="text" id="username" ng-model="registration.username")
+  label(for="password") Password:
+  input(type="password" id="password" ng-model="registration.password")
+  button(type="submit") Login

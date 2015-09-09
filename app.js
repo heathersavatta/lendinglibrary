@@ -71,10 +71,11 @@ app.use(express.static('build'));
 app.use('/api/failed', function(req, res) {
   res.sendStatus(401)
 });
-app.post('/api/logout', ctrls.user.logout);
-app.post('/api/login', passport.authenticate('local', {
+app.post('/api/user/logout', ctrls.user.logout);
+app.post('/api/user/login', passport.authenticate('local', {
   failureRedirect: '/api/failed'
 }), ctrls.user.login);
+app.post('/api/user/register', ctrls.user.register);
 
 var server = app.listen(3000, function() {
   var port = server.address().port;

@@ -24,6 +24,11 @@ lendinglibaryApp.config(['$stateProvider', '$urlRouterProvider', '$httpProvider'
         templateUrl: 'partials/login.html',
         controller: 'LibraryLoginCtrl'
       })
+      .state('library.register', {
+        url: '/register',
+        templateUrl: 'partials/register.html',
+        controller: 'LibraryRegisterCtrl'
+      })
       .state('library.items', {
         url: '/library',
         templateUrl: 'partials/items.html',
